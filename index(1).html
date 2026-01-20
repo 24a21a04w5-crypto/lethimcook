@@ -1,0 +1,1362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let Him Cook - Transform Ideas Into Companies</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #8b5cf6;
+            --primary-light: #a78bfa;
+            --secondary: #3b82f6;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --bg-dark: #0f0f23;
+            --bg-darker: #0a0a16;
+            --surface: rgba(255, 255, 255, 0.05);
+            --surface-hover: rgba(255, 255, 255, 0.08);
+            --text: #e5e7eb;
+            --text-muted: #9ca3af;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Gradient Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(59, 130, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            animation: gradientShift 20s ease infinite;
+            z-index: -1;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { transform: translate(0, 0) rotate(0deg); }
+            33% { transform: translate(-5%, -5%) rotate(120deg); }
+            66% { transform: translate(5%, 5%) rotate(240deg); }
+        }
+
+        /* Glassmorphism utility */
+        .glass {
+            background: var(--surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 0;
+        }
+
+        nav .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        nav .glass {
+            padding: 0.75rem 2rem;
+            border-radius: 100px;
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--text);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(139, 92, 246, 0.4);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--border);
+            color: var(--text);
+        }
+
+        .btn-outline:hover {
+            background: var(--surface-hover);
+            border-color: var(--primary);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #ffffff, var(--primary-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -2px;
+        }
+
+        .hero p {
+            font-size: 1.35rem;
+            color: var(--text-muted);
+            margin-bottom: 3rem;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .emoji {
+            font-size: 4rem;
+            margin-bottom: 2rem;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 4rem 2rem;
+            margin-bottom: 4rem;
+        }
+
+        .stats-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            border-radius: 24px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .section-header {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        .section-subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            padding: 0.5rem;
+            border-radius: 16px;
+            overflow-x: auto;
+        }
+
+        .tab {
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            white-space: nowrap;
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .tab:hover {
+            background: var(--surface);
+            color: var(--text);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        /* Cards Grid */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .card {
+            padding: 2rem;
+            border-radius: 24px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            background: var(--surface-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        .badge {
+            padding: 0.4rem 1rem;
+            border-radius: 8px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Fira Code', monospace;
+        }
+
+        .badge-hot {
+            background: linear-gradient(135deg, #ef4444, #f97316);
+            color: white;
+        }
+
+        .badge-new {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+        }
+
+        .badge-funded {
+            background: linear-gradient(135deg, var(--success), #34d399);
+            color: white;
+        }
+
+        .card-tagline {
+            color: var(--primary-light);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+
+        .card-description {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+
+        .tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .tag {
+            padding: 0.4rem 0.9rem;
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--primary-light);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-family: 'Fira Code', monospace;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 0.75rem;
+        }
+
+        .card-actions .btn {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            padding: 2rem;
+            overflow-y: auto;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            max-width: 700px;
+            width: 100%;
+            padding: 3rem;
+            border-radius: 32px;
+            max-height: 90vh;
+            overflow-y: auto;
+            animation: modalSlide 0.4s ease-out;
+        }
+
+        @keyframes modalSlide {
+            from {
+                opacity: 0;
+                transform: scale(0.95) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 2rem;
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .modal-close {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: var(--surface-hover);
+            transform: rotate(90deg);
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: var(--text);
+            font-size: 0.95rem;
+        }
+
+        .form-input,
+        .form-textarea,
+        .form-select {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: var(--surface);
+            border: 1.5px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        .form-input:focus,
+        .form-textarea:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: var(--surface-hover);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        /* Progress Steps */
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 20px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: var(--border);
+            z-index: 0;
+        }
+
+        .step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--surface);
+            border: 2px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .step.active .step-number {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .step.completed .step-number {
+            background: var(--success);
+            border-color: var(--success);
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* Cofounder Cards */
+        .cofounder-card {
+            padding: 2rem;
+            border-radius: 24px;
+            transition: all 0.3s;
+        }
+
+        .cofounder-card:hover {
+            transform: translateY(-5px);
+            background: var(--surface-hover);
+        }
+
+        .cofounder-header {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            align-items: start;
+        }
+
+        .avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            flex-shrink: 0;
+        }
+
+        .cofounder-info {
+            flex: 1;
+        }
+
+        .cofounder-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .cofounder-role {
+            color: var(--primary-light);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .cofounder-bio {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .skills {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .skill {
+            padding: 0.4rem 0.9rem;
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--secondary);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            font-family: 'Fira Code', monospace;
+        }
+
+        /* Toast */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            padding: 1rem 1.5rem;
+            border-radius: 16px;
+            color: white;
+            font-weight: 600;
+            z-index: 3000;
+            transform: translateX(400px);
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, var(--success), #34d399);
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: var(--surface-hover);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .feature-description {
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .modal-content {
+                padding: 2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--primary-light);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="container">
+            <div class="glass">
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <div class="logo">👨‍🍳 Let Him Cook</div>
+                    <ul class="nav-links">
+                        <li><a href="#explore">Explore</a></li>
+                        <li><a href="#cofounders">Cofounders</a></li>
+                        <li><a href="#how">How It Works</a></li>
+                        <li><a href="#investors">For Investors</a></li>
+                    </ul>
+                    <button class="btn btn-primary" onclick="openModal('create')">Start Cooking 🚀</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="emoji">👨‍🍳</div>
+            <h1>Let Him Cook</h1>
+            <p>Transform your startup idea into a legal company. Find cofounders. Get legal docs. Connect with investors. All in 48 hours.</p>
+            <div class="hero-buttons">
+                <button class="btn btn-primary" onclick="openModal('create')">Post Your Idea</button>
+                <button class="btn btn-outline" onclick="scrollToSection('explore')">Browse Ideas</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-grid">
+            <div class="stat-card glass">
+                <div class="stat-number">342</div>
+                <div class="stat-label">Ideas Cooking</div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-number">2.1K</div>
+                <div class="stat-label">Cofounders Matched</div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-number">$18M</div>
+                <div class="stat-label">Funded</div>
+            </div>
+            <div class="stat-card glass">
+                <div class="stat-number">189</div>
+                <div class="stat-label">Companies Formed</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="container" id="how">
+        <div class="section-header" style="text-align: center;">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">From idea to incorporated company in 4 simple steps</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card glass">
+                <div class="feature-icon">💡</div>
+                <h3 class="feature-title">1. Post Your Idea</h3>
+                <p class="feature-description">Share your startup vision, what you're building, and what skills you need. Our AI helps you craft the perfect pitch.</p>
+            </div>
+
+            <div class="feature-card glass">
+                <div class="feature-icon">🤝</div>
+                <h3 class="feature-title">2. Get Pull Requests</h3>
+                <p class="feature-description">Talented cofounders "request to join" your startup (like GitHub PRs). Review their skills, negotiate equity, and build your team.</p>
+            </div>
+
+            <div class="feature-card glass">
+                <div class="feature-icon">📄</div>
+                <h3 class="feature-title">3. Auto-Generate Legal Docs</h3>
+                <p class="feature-description">We automatically create incorporation papers, founder agreements, IP assignments, and cap tables. No lawyers needed.</p>
+            </div>
+
+            <div class="feature-card glass">
+                <div class="feature-icon">💰</div>
+                <h3 class="feature-title">4. Connect With Investors</h3>
+                <p class="feature-description">Validated ideas with real teams get featured to our investor network. Pitch directly and raise your first round.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Explore Ideas -->
+    <section class="container" id="explore">
+        <div class="section-header">
+            <h2 class="section-title">Explore Ideas</h2>
+            <p class="section-subtitle">Join a startup that's cooking something great</p>
+        </div>
+
+        <div class="tabs glass">
+            <button class="tab active" onclick="switchTab(this, 'trending')">🔥 Trending</button>
+            <button class="tab" onclick="switchTab(this, 'recent')">⚡ Recent</button>
+            <button class="tab" onclick="switchTab(this, 'funded')">💰 Funded</button>
+            <button class="tab" onclick="switchTab(this, 'ai')">🤖 AI/ML</button>
+            <button class="tab" onclick="switchTab(this, 'climate')">🌱 Climate</button>
+        </div>
+
+        <div class="cards-grid" id="ideasGrid">
+            <!-- Will be populated by JS -->
+        </div>
+    </section>
+
+    <!-- Cofounders -->
+    <section class="container" id="cofounders">
+        <div class="section-header">
+            <h2 class="section-title">Find Your Cofounder</h2>
+            <p class="section-subtitle">Talented people looking for the right startup to join</p>
+        </div>
+
+        <div class="cards-grid" id="cofoundersGrid">
+            <!-- Will be populated by JS -->
+        </div>
+    </section>
+
+    <!-- Create Idea Modal -->
+    <div class="modal" id="createModal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Start Cooking 👨‍🍳</h2>
+                <button class="modal-close" onclick="closeModal('create')">&times;</button>
+            </div>
+
+            <div class="progress-steps">
+                <div class="progress-line"></div>
+                <div class="step active">
+                    <div class="step-number">1</div>
+                    <div class="step-label">Idea</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-label">Team</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-label">Legal</div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-label">Launch</div>
+                </div>
+            </div>
+
+            <form id="createForm" onsubmit="handleCreateSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Startup Name</label>
+                    <input type="text" class="form-input" placeholder="e.g., NexusAI" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">One-Line Pitch</label>
+                    <input type="text" class="form-input" placeholder="e.g., 'AI that writes production-ready code'" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">What problem are you solving?</label>
+                    <textarea class="form-textarea" placeholder="Describe the pain point..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Your solution</label>
+                    <textarea class="form-textarea" placeholder="How does your product solve this?" required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Category</label>
+                    <select class="form-select" required>
+                        <option value="">Select category</option>
+                        <option value="ai">AI/ML</option>
+                        <option value="fintech">FinTech</option>
+                        <option value="health">HealthTech</option>
+                        <option value="climate">Climate Tech</option>
+                        <option value="saas">SaaS</option>
+                        <option value="consumer">Consumer</option>
+                        <option value="crypto">Web3/Crypto</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Stage</label>
+                    <select class="form-select" required>
+                        <option value="">Select stage</option>
+                        <option value="idea">Just an idea</option>
+                        <option value="prototype">Prototype built</option>
+                        <option value="mvp">MVP launched</option>
+                        <option value="customers">Have customers</option>
+                        <option value="revenue">Revenue generating</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Looking for (cofounders)</label>
+                    <input type="text" class="form-input" placeholder="e.g., 'Full-stack developer with ML experience'" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Equity offering (%)</label>
+                    <input type="number" class="form-input" placeholder="10-30% typical" min="1" max="49" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.1rem;">
+                    Generate Legal Docs & Launch →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Join Modal -->
+    <div class="modal" id="joinModal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 class="modal-title">Join This Startup</h2>
+                <button class="modal-close" onclick="closeModal('join')">&times;</button>
+            </div>
+
+            <div id="joinIdeaInfo" style="margin-bottom: 2rem;"></div>
+
+            <form id="joinForm" onsubmit="handleJoinSubmit(event)">
+                <div class="form-group">
+                    <label class="form-label">Your role</label>
+                    <input type="text" class="form-input" placeholder="e.g., 'CTO', 'Head of Design'" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Why you're perfect for this</label>
+                    <textarea class="form-textarea" placeholder="Your relevant experience and what you bring to the table..." required></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Your skills</label>
+                    <input type="text" class="form-input" placeholder="React, Python, ML, Figma..." required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Requested equity (%)</label>
+                    <input type="number" class="form-input" placeholder="Based on your contribution" min="1" max="49" required>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Time commitment</label>
+                    <select class="form-select" required>
+                        <option value="">Select commitment</option>
+                        <option value="fulltime">Full-time (40+ hrs/week)</option>
+                        <option value="parttime">Part-time (20-30 hrs/week)</option>
+                        <option value="advisor">Advisor (5-10 hrs/week)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 1.1rem;">
+                    Send Join Request →
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Sample Data
+        const ideas = [
+            {
+                id: 1,
+                name: "FlowState AI",
+                tagline: "AI-powered focus companion for deep work",
+                description: "An intelligent productivity tool that learns your work patterns, blocks distractions, and creates the perfect environment for flow state. Uses ML to optimize your schedule.",
+                category: "AI/ML",
+                stage: "MVP",
+                lookingFor: "iOS engineer with SwiftUI",
+                equity: 25,
+                founder: "Sarah Chen",
+                tags: ["Productivity", "AI", "Mobile"],
+                badge: "hot",
+                applications: 23,
+                views: 892
+            },
+            {
+                id: 2,
+                name: "GreenChain",
+                tagline: "Blockchain for transparent carbon credits",
+                description: "Making climate action verifiable through blockchain. Every carbon credit is tracked, verified, and traded on-chain with complete transparency. Working with Fortune 500 companies.",
+                category: "Climate",
+                stage: "Customers",
+                lookingFor: "Solidity developer + climate expert",
+                equity: 22,
+                founder: "Marcus Johnson",
+                tags: ["Climate", "Web3", "Enterprise"],
+                badge: "funded",
+                applications: 18,
+                views: 654
+            },
+            {
+                id: 3,
+                name: "CodeMentor AI",
+                tagline: "AI pair programmer for learning to code",
+                description: "Unlike Copilot, we're designed for beginners. Explains every suggestion, debugs with you, and adapts to your skill level. Teaching you to code, not replacing you.",
+                category: "EdTech",
+                stage: "Prototype",
+                lookingFor: "ML engineer + educator",
+                equity: 30,
+                founder: "Alex Rivera",
+                tags: ["Education", "AI", "Developer Tools"],
+                badge: "new",
+                applications: 31,
+                views: 1203
+            },
+            {
+                id: 4,
+                name: "HealthSync",
+                tagline: "One dashboard for all your health data",
+                description: "Integrates Apple Health, Fitbit, medical records, lab results, and wearables. AI analyzes patterns and gives you actionable insights before problems arise.",
+                category: "HealthTech",
+                stage: "MVP",
+                lookingFor: "Healthcare integrations engineer",
+                equity: 20,
+                founder: "Dr. Priya Patel",
+                tags: ["Health", "Data", "API"],
+                badge: "hot",
+                applications: 27,
+                views: 1089
+            },
+            {
+                id: 5,
+                name: "VoiceOS",
+                tagline: "Operating system controlled entirely by voice",
+                description: "Reimagining the OS for accessibility and speed. Natural language for everything - files, coding, browsing, settings. Making computers usable for everyone.",
+                category: "AI/ML",
+                stage: "Prototype",
+                lookingFor: "Systems engineer + voice AI expert",
+                equity: 28,
+                founder: "David Kim",
+                tags: ["Voice AI", "OS", "Accessibility"],
+                badge: "hot",
+                applications: 42,
+                views: 1567
+            },
+            {
+                id: 6,
+                name: "LocalTable",
+                tagline: "Farm-to-table marketplace with zero middlemen",
+                description: "Connect local farmers directly with restaurants and consumers. Fresh food, fair prices, sustainable farming. Already partnered with 50+ farms in California.",
+                category: "Marketplace",
+                stage: "Revenue",
+                lookingFor: "Operations & logistics expert",
+                equity: 18,
+                founder: "Emma Thompson",
+                tags: ["Food", "Sustainability", "Logistics"],
+                badge: "funded",
+                applications: 15,
+                views: 743
+            }
+        ];
+
+        const cofounders = [
+            {
+                name: "Alex Chen",
+                role: "Full-Stack Engineer",
+                bio: "10 years building scalable systems at Google and Stripe. Obsessed with developer experience and clean architecture. Looking for AI/ML startup.",
+                skills: ["React", "Node.js", "Python", "AWS", "Postgres"],
+                availability: "Full-time"
+            },
+            {
+                name: "Maria Garcia",
+                role: "Product Designer",
+                bio: "Led design at 2 YC startups (0→1M users). Figma expert. Believe great design is invisible. Love early-stage chaos.",
+                skills: ["Figma", "UI/UX", "Prototyping", "User Research", "Branding"],
+                availability: "Full-time"
+            },
+            {
+                name: "James Wilson",
+                role: "Growth Marketer",
+                bio: "Grew 3 startups from 0 to 1M users organically. SEO wizard. Content strategist. Know every growth hack in the book.",
+                skills: ["SEO", "Content", "Analytics", "Viral Growth", "Community"],
+                availability: "Part-time"
+            },
+            {
+                name: "Sophia Lee",
+                role: "ML Engineer",
+                bio: "PhD in ML from Stanford. 5 published papers. Built production ML systems at scale. Want to work on transformative AI.",
+                skills: ["PyTorch", "TensorFlow", "NLP", "Computer Vision", "MLOps"],
+                availability: "Full-time"
+            },
+            {
+                name: "Carlos Martinez",
+                role: "Enterprise Sales",
+                bio: "Closed $50M in B2B deals. Built sales team from 0 to 20 at SaaS unicorn. Know how to sell to Fortune 500.",
+                skills: ["Enterprise Sales", "Partnerships", "Negotiation", "CRM"],
+                availability: "Full-time"
+            },
+            {
+                name: "Nina Patel",
+                role: "Operations Lead",
+                bio: "Scaled ops at hypergrowth startup (10→500 people). Process optimization obsessed. Make chaos into systems.",
+                skills: ["Operations", "Process Design", "Hiring", "Analytics"],
+                availability: "Full-time"
+            }
+        ];
+
+        // Render Ideas
+        function renderIdeas(data = ideas) {
+            const grid = document.getElementById('ideasGrid');
+            grid.innerHTML = data.map(idea => `
+                <div class="card glass">
+                    <div class="card-header">
+                        <div>
+                            <h3 class="card-title">${idea.name}</h3>
+                        </div>
+                        <span class="badge badge-${idea.badge}">${idea.badge === 'hot' ? '🔥 Hot' : idea.badge === 'funded' ? '💰 Funded' : '✨ New'}</span>
+                    </div>
+                    <p class="card-tagline">${idea.tagline}</p>
+                    <p class="card-description">${idea.description}</p>
+                    <div class="tags">
+                        ${idea.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="card-meta">
+                        <span>👤 ${idea.founder}</span>
+                        <span>💼 ${idea.stage}</span>
+                        <span>🎯 ${idea.equity}% equity</span>
+                    </div>
+                    <div class="card-meta">
+                        <span>👁 ${idea.views} views</span>
+                        <span>📬 ${idea.applications} requests</span>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-outline" onclick="viewIdea(${idea.id})">View Details</button>
+                        <button class="btn btn-primary" onclick="joinIdea(${idea.id})">Join Startup</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Render Cofounders
+        function renderCofounders() {
+            const grid = document.getElementById('cofoundersGrid');
+            grid.innerHTML = cofounders.map((person, i) => `
+                <div class="cofounder-card glass">
+                    <div class="cofounder-header">
+                        <div class="avatar">${person.name.charAt(0)}</div>
+                        <div class="cofounder-info">
+                            <h3 class="cofounder-name">${person.name}</h3>
+                            <div class="cofounder-role">${person.role}</div>
+                        </div>
+                    </div>
+                    <p class="cofounder-bio">${person.bio}</p>
+                    <div style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1rem;">⏰ ${person.availability}</div>
+                    <div class="skills">
+                        ${person.skills.map(skill => `<span class="skill">${skill}</span>`).join('')}
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%;" onclick="connectCofounder('${person.name}')">Connect</button>
+                </div>
+            `).join('');
+        }
+
+        // Switch Tab
+        function switchTab(element, filter) {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            element.classList.add('active');
+            
+            let filtered = ideas;
+            if (filter === 'trending') {
+                filtered = [...ideas].sort((a, b) => b.views - a.views);
+            } else if (filter === 'funded') {
+                filtered = ideas.filter(i => i.badge === 'funded');
+            } else if (filter === 'ai') {
+                filtered = ideas.filter(i => i.category === 'AI/ML');
+            } else if (filter === 'climate') {
+                filtered = ideas.filter(i => i.category === 'Climate');
+            }
+            
+            renderIdeas(filtered);
+        }
+
+        // Modal functions
+        function openModal(type) {
+            document.getElementById(type + 'Modal').classList.add('active');
+        }
+
+        function closeModal(type) {
+            document.getElementById(type + 'Modal').classList.remove('active');
+        }
+
+        // View Idea
+        function viewIdea(id) {
+            const idea = ideas.find(i => i.id === id);
+            showToast(`Opening ${idea.name}...`, 'info');
+        }
+
+        // Join Idea
+        function joinIdea(id) {
+            const idea = ideas.find(i => i.id === id);
+            document.getElementById('joinIdeaInfo').innerHTML = `
+                <div class="glass" style="padding: 1.5rem; border-radius: 16px;">
+                    <h3 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem;">${idea.name}</h3>
+                    <p style="color: var(--primary-light); margin-bottom: 1rem; font-weight: 500;">${idea.tagline}</p>
+                    <div style="display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.95rem;">
+                        <span>Looking for: <strong style="color: white;">${idea.lookingFor}</strong></span>
+                        <span>Offering: <strong style="color: var(--primary-light);">${idea.equity}% equity</strong></span>
+                    </div>
+                </div>
+            `;
+            openModal('join');
+        }
+
+        // Connect Cofounder
+        function connectCofounder(name) {
+            showToast(`Connection request sent to ${name}!`, 'success');
+        }
+
+        // Form Submissions
+        function handleCreateSubmit(e) {
+            e.preventDefault();
+            showToast('Generating legal documents...', 'info');
+            
+            setTimeout(() => showToast('✓ Incorporation docs generated', 'success'), 2000);
+            setTimeout(() => showToast('✓ Founder agreement created', 'success'), 4000);
+            setTimeout(() => showToast('✓ IP assignment completed', 'success'), 6000);
+            setTimeout(() => {
+                showToast('🎉 Your startup is now live!', 'success');
+                closeModal('create');
+                e.target.reset();
+            }, 8000);
+        }
+
+        function handleJoinSubmit(e) {
+            e.preventDefault();
+            showToast('Join request sent! Founder will review within 48 hours.', 'success');
+            closeModal('join');
+            e.target.reset();
+        }
+
+        // Toast
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = `toast ${type} show`;
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Scroll to section
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+
+        // Close modal on backdrop click
+        window.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal')) {
+                e.target.classList.remove('active');
+            }
+        });
+
+        // Initialize
+        renderIdeas();
+        renderCofounders();
+    </script>
+</body>
+</html>
